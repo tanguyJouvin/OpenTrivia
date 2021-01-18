@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Open Trivia
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,41 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Open Trivia</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div *ngIf="!connecte;else questionnaire" >
+      <label for="pseudo">Votre Pseudo</label><br>
+      <input type="text" id="pseudo" [(ngModel)]="pseudo" ><br>
+      <label>Difficulté</label><br>
+      
+      <select [(ngModel)]="difficulte">
+        <option [ngValue]="null" disabled >Selectionnez la difficulté</option>
+        <option *ngFor="let item of listeDifficulte">{{item}}</option>
+      </select><br>
+      
+        <label for="save">
+          <input type="checkbox" name="save" id="save" > Sauvegarder mes informations
+        </label><br>
+        <p [ngStyle]="{'color': fontColor}" >{{message}}</p><br>
+        <button type="submit" (click)="verifSaisie()">Commencez</button>
+      </div>
+      <ng-template #questionnaire>
+        <p>Bienvenue <strong>{{pseudo}}</strong></p><br>
+        <p>QUel temps fait-il ?</p>
+        <div class="inline">
+          <button (click)="controlSaisie()" value="0">Réponse A</button>
+          <button>Réponse B</button>
+          <button>Réponse C</button>
+          <button>Réponse D</button>
+        </div><br>
+        <div class="inline">
+          <button *ngIf="">Question suivante</button>
+          <button (click)="deconnexion()">Se déconnecter</button>
+        </div>
+      </ng-template>
+
   </div>
 </ion-content>
