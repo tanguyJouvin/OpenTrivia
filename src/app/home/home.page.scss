@@ -6,22 +6,24 @@
   transform: translateY(-50%);
 }
 
-#container label {
+label {
   font-size: 20px;
   line-height: 26px;
-  margin-top: 3em;
+  padding-bottom: 3em;
 }
 
-#container input {
+input {
   font-size: 16px;
   line-height: 22px;
   margin-bottom: 1em;
   color: #8c8c8c;
 
 }
-
-#container button{
-  margin-top: 3em;
+p {
+  margin-bottom: 2em;
+}
+button{
+  margin: 0.1em 0.1em 1em 0.1em;
   font-size: 25px;
 }
 

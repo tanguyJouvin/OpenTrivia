@@ -17,8 +17,8 @@
     <div *ngIf="!connecte;else questionnaire" >
       <label for="pseudo">Votre Pseudo</label><br>
       <input type="text" id="pseudo" [(ngModel)]="pseudo" ><br>
+
       <label>Difficulté</label><br>
-      
       <select [(ngModel)]="difficulte">
         <option [ngValue]="null" disabled >Selectionnez la difficulté</option>
         <option *ngFor="let item of listeDifficulte">{{item}}</option>
@@ -41,8 +41,8 @@
           <button (click)="cacheBouton()">Réponse D</button>
         </div><br>
         <div class="inline">
-          <button *ngIf="!cacher">Question suivante</button>
           <button (click)="deconnexion()">Se déconnecter</button>
+          <button *ngIf="!cacher">Question suivante</button>
         </div>
       </ng-template>
 
