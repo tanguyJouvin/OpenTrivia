@@ -13,7 +13,8 @@ export class HomePage {
   listeDifficulte: Array<string> = ['easy', 'medium', 'hard'];
   difficulte: String = null;
   connecte: Boolean = false;
-  clique: Boolean = false;
+  cacher: Boolean = true;
+  fontColor: String = 'red';
 
   constructor() {}
 
@@ -25,15 +26,14 @@ export class HomePage {
       this.connecte = true;
       this.message = `Bienvenue sur OpenTrivia ${this.pseudo}`;
     }else{
-      this.connecte;
       this.message = "Vous n'avez pas saisie de bonnes informations";
     }
     return this.message;
   }
 
-  controlSaisie() 
+  cacheBouton() : void
   {
-    return !this.clique;
+    this.cacher = !this.cacher;
     
   }
   deconnexion() : Boolean

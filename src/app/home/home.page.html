@@ -31,16 +31,17 @@
         <button type="submit" (click)="verifSaisie()">Commencez</button>
       </div>
       <ng-template #questionnaire>
+        
         <p>Bienvenue <strong>{{pseudo}}</strong></p><br>
         <p>QUel temps fait-il ?</p>
         <div class="inline">
-          <button (click)="controlSaisie()" value="0">Réponse A</button>
-          <button>Réponse B</button>
-          <button>Réponse C</button>
-          <button>Réponse D</button>
+          <button (click)="cacheBouton()" value="0">Réponse A</button>
+          <button (click)="cacheBouton()">Réponse B</button>
+          <button (click)="cacheBouton()">Réponse C</button>
+          <button (click)="cacheBouton()">Réponse D</button>
         </div><br>
         <div class="inline">
-          <button *ngIf="">Question suivante</button>
+          <button *ngIf="!cacher">Question suivante</button>
           <button (click)="deconnexion()">Se déconnecter</button>
         </div>
       </ng-template>
