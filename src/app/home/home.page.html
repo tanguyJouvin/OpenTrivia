@@ -13,38 +13,47 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+    <ion-grid id="container">
     <div *ngIf="!connecte;else questionnaire" >
-      <label for="pseudo">Votre Pseudo</label><br>
-      <input type="text" id="pseudo" [(ngModel)]="pseudo" ><br>
-
-      <label>Difficulté</label><br>
-      <select [(ngModel)]="difficulte">
-        <option [ngValue]="null" disabled >Selectionnez la difficulté</option>
-        <option *ngFor="let item of listeDifficulte">{{item}}</option>
-      </select><br>
       
-        <label for="save">
-          <input type="checkbox" name="save" id="save" > Sauvegarder mes informations
-        </label><br>
-        <p [ngStyle]="{'color': fontColor}" >{{message}}</p><br>
-        <button type="submit" (click)="verifSaisie()">Commencez</button>
-      </div>
-      <ng-template #questionnaire>
+      <ion-item>
+        <ion-label position="stacked" for="pseudo">Votre Pseudo</ion-label><br>
+        <ion-input type="text" id="pseudo" [(ngModel)]="pseudo" ></ion-input> 
+      </ion-item>
+      
+
+     <ion-item>
+      <ion-label position="stacked">Difficulté</ion-label><br>
+      <ion-select [(ngModel)]="difficulte">
+        <ion-select-option *ngFor="let item of listeDifficulte">{{item}}</ion-select-option>
+      </ion-select><br>
+     </ion-item>
+      <ion-item-group>
+        <ion-label for="save">
+          <ion-toggle name="save" id="save"></ion-toggle>Sauvegarder mes informations
+        </ion-label><br>
+        <ion-button color="primary" type="submit" (click)="verifSaisie()">Commencez</ion-button>
+      </ion-item-group>
         
-        <p>Bienvenue <strong>{{pseudo}}</strong></p><br>
-        <p>QUel temps fait-il ?</p>
-        <div class="inline">
-          <button (click)="cacheBouton()" value="0">Réponse A</button>
-          <button (click)="cacheBouton()">Réponse B</button>
-          <button (click)="cacheBouton()">Réponse C</button>
-          <button (click)="cacheBouton()">Réponse D</button>
-        </div><br>
-        <div class="inline">
-          <button (click)="deconnexion()">Se déconnecter</button>
-          <button *ngIf="!cacher">Question suivante</button>
-        </div>
+      </div>
+      
+      <ng-template #questionnaire>
+        <ion-item>
+          <ion-label>Bienvenue <strong>{{pseudo}}</strong></ion-label><br>
+          <ion-label>QUel temps fait-il ?</ion-label>
+        </ion-item>
+
+        <ion-buttons class="inline">
+          <ion-button color="secondary" (click)="cacheBouton()">Réponse A</ion-button>
+          <ion-button (click)="cacheBouton()">Réponse B</ion-button>
+          <ion-button (click)="cacheBouton()">Réponse C</ion-button>
+          <ion-button (click)="cacheBouton()">Réponse D</ion-button>
+        </ion-buttons><br>
+        <ion-buttons class="inline">
+          <ion-button color="primary" (click)="deconnexion()">Se déconnecter</ion-button>
+          <ion-button color="success" *ngIf="!cacher">Question suivante</ion-button>
+        </ion-buttons>
       </ng-template>
 
-  </div>
+  </ion-grid>
 </ion-content>

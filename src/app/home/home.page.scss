@@ -1,28 +1,18 @@
-#container {
- 
-  position: relative;
-  margin-left: 5em;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-label {
+ ion-label {
   font-size: 20px;
   line-height: 26px;
   padding-bottom: 3em;
 }
 
-input {
+ion-input {
   font-size: 16px;
   line-height: 22px;
   margin-bottom: 1em;
   color: #8c8c8c;
 
 }
-p {
-  margin-bottom: 2em;
-}
-button{
+
+ion-button{
   margin: 0.1em 0.1em 1em 0.1em;
   font-size: 25px;
 }
