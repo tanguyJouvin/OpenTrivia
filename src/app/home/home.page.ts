@@ -15,11 +15,14 @@ export class HomePage {
   listeDifficulte: Array<string> = ['easy', 'medium', 'hard'];
   difficulte: string = '';
   sauvegarder: Boolean = false;
-  connecte: Boolean = false;
-  cacher: Boolean = true;
+  beginGame: Boolean = false;
+  nextQuestion: Boolean = false;
+  endGame: boolean;
+ 
 
   //constructeur de la classe Home Page
-  constructor(public toastController: ToastController, public OpenTriviaServiceService: OpenTriviaServiceService) {}
+  constructor(public toastController: ToastController,
+              private OpenTriviaServiceService: OpenTriviaServiceService) {}
 
   //méthode pour afficher un toast pour informer l'utilisateur
   async presentToast(msg: string) {
@@ -55,28 +58,70 @@ export class HomePage {
     if(this.error.trim().length > 0)
     {
       this.presentToast(this.error);
+
     } else {
-      this.connecte = true;
       this.presentToast(`Bienvenue sur OpenTrivia ${this.pseudo}`);
+      this.loadQuestion();
     }
+    
   }
 
   /**
    *  TODO : partie questionnaire a déplacer dans un autre composant
    */
+  questions : any[] = [];
+  questionCourante: any;
+  numeroQuestion: number = 0;
+  score: number = 0;
+ 
+  async loadQuestion() {
+    
+    this.numeroQuestion = 0;
+    this.score = 0;
+   try
+   {
+      this.questions = await this.OpenTriviaServiceService.getQuestions(this.difficulte, 10);
+      console.log(this.questions);
+      
+      this.choixQuestion();
+      this.beginGame = true;
+   } catch (error)
+   {
+      console.log(error);
+   }
+  }
 
-  cacheBouton() : void
+  private choixQuestion()
   {
-    this.cacher = !this.cacher;  
-  }
-  
-  deconnexion() : Boolean
-  {
-    return this.connecte;
-  }
-  
-  QuestionSuivante() {
-    this.OpenTriviaServiceService.getQuestion();
+    this.questionCourante = this.questions[this.numeroQuestion];
   }
 
+  reponse(reponse: any) : void
+  {
+    // empêche clic sur plusieurs réponses
+    if (!this.nextQuestion) {
+      // gestion du score
+      if (reponse.correct) {
+        this.score++;
+      }
+
+      this.nextQuestion = true;
+
+      if (this.numeroQuestion >= this.questions.length - 1) {
+        this.endGame = true;
+      }
+    }
+  }
+
+  questionSuivante(): void {
+    this.numeroQuestion++;
+    this.nextQuestion = false;
+    this.choixQuestion();
+  }
+
+  retour(): void {
+    this.presentToast('Votre score est de ' + this.score + ' point' +
+        (this.score > 1 ? 's' : ''));
+    this.beginGame = false;
+  }
 }
