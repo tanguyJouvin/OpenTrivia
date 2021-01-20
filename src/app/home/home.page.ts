@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { OpenTriviaServiceService } from '../services/open-trivia-service.service';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +18,23 @@ export class HomePage {
   connecte: Boolean = false;
   cacher: Boolean = true;
 
-  constructor(public toastController: ToastController) {}
+  //constructeur de la classe Home Page
+  constructor(public toastController: ToastController, public OpenTriviaServiceService: OpenTriviaServiceService) {}
 
+  //méthode pour afficher un toast pour informer l'utilisateur
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      header: msg,
+      duration: 3000,
+      position: 'top',
+      animated: true,
+      color: 'warning'
+    });
+    toast.present();
+  }
+
+  //fonction enclenchée lors du clic sur le bouton et fait basculer sur le questionnaire
+  //sinon renvoie une erreur à l'utilisateur
   commencer() : void
   {
     this.error ='';
@@ -45,6 +61,10 @@ export class HomePage {
     }
   }
 
+  /**
+   *  TODO : partie questionnaire a déplacer dans un autre composant
+   */
+
   cacheBouton() : void
   {
     this.cacher = !this.cacher;  
@@ -55,15 +75,8 @@ export class HomePage {
     return this.connecte;
   }
   
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      header: msg,
-      duration: 3000,
-      position: 'top',
-      animated: true,
-      color: 'warning'
-    });
-    toast.present();
+  QuestionSuivante() {
+    this.OpenTriviaServiceService.getQuestion();
   }
 
 }

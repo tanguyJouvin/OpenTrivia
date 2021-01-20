@@ -63,7 +63,7 @@
           
           <ion-buttons class="inline">
             <ion-button color="primary" (click)="deconnexion()">Se déconnecter</ion-button>
-            <ion-button color="success" *ngIf="!cacher">Question suivante</ion-button>
+            <ion-button color="success" *ngIf="!cacher" (click)="QuestionSuivante()" >Question suivante</ion-button>
           </ion-buttons>
         
        </ion-grid>

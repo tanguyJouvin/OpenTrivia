@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class OpenTriviaServiceService {
 
   constructor() { }
+
+  getQuestion()
+  {
+    console.log("clic c'est le service");
+    
+  }
 }
