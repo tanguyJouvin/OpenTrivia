@@ -10,24 +10,38 @@ export class HomePage {
 
   //déclaration des variables
   pseudo: string = '';
-  message: string = '';
+  error: string = '';
   listeDifficulte: Array<string> = ['easy', 'medium', 'hard'];
-  difficulte: string = null;
+  difficulte: string = '';
+  sauvegarder: Boolean = false;
   connecte: Boolean = false;
   cacher: Boolean = true;
 
   constructor(public toastController: ToastController) {}
 
-  verifSaisie() : void
+  commencer() : void
   {
-    if(this.pseudo.length > 3 && this.difficulte != null)
+    this.error ='';
+
+    if(this.pseudo.trim() === '')
     {
+      this.error +=  'Veuillez saisir un pseudo.';
+    } else if(this.pseudo.trim().length < 3)
+    {
+      this.error += 'Veuillez entrer un pseudo de plus de 3 caractères.';
+    }
+    
+    if( this.difficulte.trim() === '')
+    {
+      this.error +=  'Veuillez choisir un niveau de difficulté.';
+    }
+    
+    if(this.error.trim().length > 0)
+    {
+      this.presentToast(this.error);
+    } else {
       this.connecte = true;
-      this.message = `Bienvenue sur OpenTrivia ${this.pseudo}`;
-      this.presentToast();
-    }else{
-      this.message = "Vous n'avez pas saisie de bonnes informations";
-      this.presentToast();
+      this.presentToast(`Bienvenue sur OpenTrivia ${this.pseudo}`);
     }
   }
 
@@ -41,11 +55,11 @@ export class HomePage {
     return this.connecte;
   }
   
-  async presentToast() {
+  async presentToast(msg: string) {
     const toast = await this.toastController.create({
-      header: this.message,
-      duration: 2000,
-      position: 'bottom',
+      header: msg,
+      duration: 3000,
+      position: 'top',
       animated: true,
       color: 'warning'
     });

@@ -13,9 +13,9 @@
     </ion-toolbar>
   </ion-header>
 
-    <ion-grid id="container">
+    
     <div *ngIf="!connecte;else questionnaire" >
-      
+      <ion-grid>
       <ion-item>
         <ion-label position="stacked" for="pseudo">Votre Pseudo</ion-label><br>
         <ion-input type="text" id="pseudo" [(ngModel)]="pseudo" ></ion-input> 
@@ -30,30 +30,43 @@
      </ion-item>
       <ion-item-group>
         <ion-label for="save">
-          <ion-toggle name="save" id="save"></ion-toggle>Sauvegarder mes informations
+          <ion-toggle name="save" id="save" [(ngModel)]="sauvegarder" ></ion-toggle>Sauvegarder mes informations
         </ion-label><br>
-        <ion-button color="primary" type="submit" (click)="verifSaisie()">Commencez</ion-button>
+        <ion-button color="primary" type="submit" (click)="commencer()">Commencez</ion-button>
       </ion-item-group>
-        
+    </ion-grid>
       </div>
       
       <ng-template #questionnaire>
-        <ion-item>
-          <ion-label>Bienvenue <strong>{{pseudo}}</strong></ion-label><br>
-          <ion-label>QUel temps fait-il ?</ion-label>
-        </ion-item>
-
-        <ion-buttons class="inline">
-          <ion-button color="secondary" (click)="cacheBouton()">Réponse A</ion-button>
-          <ion-button (click)="cacheBouton()">Réponse B</ion-button>
-          <ion-button (click)="cacheBouton()">Réponse C</ion-button>
-          <ion-button (click)="cacheBouton()">Réponse D</ion-button>
-        </ion-buttons><br>
-        <ion-buttons class="inline">
-          <ion-button color="primary" (click)="deconnexion()">Se déconnecter</ion-button>
-          <ion-button color="success" *ngIf="!cacher">Question suivante</ion-button>
-        </ion-buttons>
+        <ion-grid>
+          
+            <ion-label> Bienvenue sur OpenTrivia - <strong>{{pseudo}}</strong></ion-label><br>
+            <ion-label>QUel temps fait-il ?</ion-label>
+          
+        
+          <ion-row>
+            <ion-col size="12" size-sm="6">
+              <ion-button color="secondary" (click)="cacheBouton()">Réponse A</ion-button>
+            </ion-col>
+            <ion-col size="12" size-sm="6">
+              <ion-button color="secondary" (click)="cacheBouton()">Réponse B</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-sm="6">
+              <ion-button color="secondary" (click)="cacheBouton()">Réponse C</ion-button>
+            </ion-col>
+            <ion-col size="12" size-sm="6">
+              <ion-button color="secondary" (click)="cacheBouton()">Réponse D</ion-button>
+            </ion-col>
+          </ion-row>
+          
+          <ion-buttons class="inline">
+            <ion-button color="primary" (click)="deconnexion()">Se déconnecter</ion-button>
+            <ion-button color="success" *ngIf="!cacher">Question suivante</ion-button>
+          </ion-buttons>
+        
+       </ion-grid>
       </ng-template>
 
-  </ion-grid>
 </ion-content>
