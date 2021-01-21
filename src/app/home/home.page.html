@@ -39,6 +39,7 @@
       <ion-text color="primary">
         <p class="ion-text-center">Bienvenue {{ pseudo }}</p>
       </ion-text>
+      
       <h3 class="ion-text-center" [innerHTML]="questionCourante.question"></h3>
       <ion-grid *ngIf="questionCourante.reponses">
         <ion-row>
@@ -66,6 +67,11 @@
         expand="full"
         *ngIf="endGame"
         (click)="retour()">Voir mon score</ion-button>
+        <ion-button
+        expand="full"
+       
+        (click)="appel()">appel api</ion-button>
+       
       </ng-template>
 
 </ion-content>

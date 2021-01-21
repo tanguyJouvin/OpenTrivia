@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { HttpServiceService } from '../services/http-service.service';
 import { OpenTriviaServiceService } from '../services/open-trivia-service.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class HomePage {
 
   //constructeur de la classe Home Page
   constructor(public toastController: ToastController,
-              private OpenTriviaServiceService: OpenTriviaServiceService) {}
+              private OpenTriviaServiceService: OpenTriviaServiceService,
+              private http : HttpServiceService) {}
 
   //méthode pour afficher un toast pour informer l'utilisateur
   async presentToast(msg: string) {
@@ -38,7 +40,7 @@ export class HomePage {
 
   //fonction enclenchée lors du clic sur le bouton et fait basculer sur le questionnaire
   //sinon renvoie une erreur à l'utilisateur
-  commencer() : void
+ /*  commencer() : void
   {
     this.error ='';
 
@@ -63,25 +65,31 @@ export class HomePage {
       this.presentToast(`Bienvenue sur OpenTrivia ${this.pseudo}`);
       this.loadQuestion();
     }
-    
-  }
+  } */
+  commencer(){this.loadQuestion();}
 
   /**
    *  TODO : partie questionnaire a déplacer dans un autre composant
    */
   questions : any[] = [];
+  
   questionCourante: any;
   numeroQuestion: number = 0;
   score: number = 0;
- 
+  
+ appel()
+  {
+    this.http.getQuestions();
+  }
   async loadQuestion() {
     
     this.numeroQuestion = 0;
     this.score = 0;
    try
    {
-      this.questions = await this.OpenTriviaServiceService.getQuestions(this.difficulte, 10);
-      console.log(this.questions);
+      //this.questions = await this.OpenTriviaServiceService.getQuestions(this.difficulte, 10);
+      
+      //console.log(this.questions);
       
       this.choixQuestion();
       this.beginGame = true;
